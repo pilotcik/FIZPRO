@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0d3a5f">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>JISMONIY TAYYORGARLIK</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚔️</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚔️</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0d3a5f, #1c6b97, #2a8ac0);
+            color: #fff;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+        
+        /* Android-like header */
+        .app-header {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .app-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .app-icon {
+            font-size: 1.8rem;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .logo {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+        
+        .logo-left {
+            margin-right: 15px;
+        }
+        
+        .logo-right {
+            margin-left: 15px;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 20px 15px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 20px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            margin-top: 15px;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .description {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        h2 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #2a8ac0;
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            font-size: 1rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        
+        select {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 17px;
+            background: #ff9900;
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        button:hover, button:active {
+            background: #ffaa33;
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .result-display {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .total-score {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #ff9900;
+        }
+        
+        .grade {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        .grade-excellent {
+            background: rgba(0, 200, 0, 0.3);
+            color: #00ff00;
+        }
+        
+        .grade-good {
+            background: rgba(0, 150, 255, 0.3);
+            color: #00aaff;
+        }
+        
+        .grade-satisfactory {
+            background: rgba(255, 165, 0, 0.3);
+            color: #ffaa00;
+        }
+        
+        .grade-poor {
+            background: rgba(200, 0, 0, 0.3);
+            color: #ff3333;
+        }
+        
+        .details {
+            margin-top: 20px;
+        }
+        
+        .details h3 {
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        th, td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        th {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .exercise-details {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        
+        .exercise-details h4 {
+            margin-bottom: 10px;
+            color: #ff9900;
+            text-align: center;
+        }
+        
+        .criteria-table {
+            margin-top: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .install-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: auto;
+            padding: 12px 20px;
+            background: #28a745;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            display: none;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        
+        .tab-btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .tab-btn.active {
+            background: rgba(255, 153, 0, 0.5);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                max-width: 700px;
+                padding: 20px;
+            }
+            
+            .main-content {
+                flex-direction: row;
+            }
+            
+            .card {
+                flex: 1;
+            }
+            
+            .logo {
+                height: 60px;
+            }
+            
+            .app-title {
+                font-size: 1.6rem;
+            }
+        }
+        
+        /* Android navigatsiya bari uchun joy */
+        .safe-area {
+            padding-bottom: constant(safe-area-inset-bottom);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+</head>
+<body>
+    <!-- Android header -->
+    <div class="app-header">
+        <div class="logo-container">
+            <!-- O'zbekiston gerbi -->
+            <img src="https://president.uz/img/gerb.png" class="logo logo-left">
+            
+            <!-- Sarlavha -->
+            <div class="app-title">JISMONIY TAYYORGARLIK</div>
+            
+            <!-- Mudofaa vazirligi logotipi -->
+            <img src="https://api-portal.gov.uz/uploads/12/2025/06/20/5257b256-944d-ed13-20d1-c79b659a0791_authority_12.png" alt="Mudofaa Vazirligi" class="logo logo-right">
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <p class="description">Professional harbiy xizmatchilarning jismoniy tayyorgarlik darajasini aniq baholash uchun ishlab chiqilgan dastur</p>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('input')">Baholash</button>
+            <button class="tab-btn" onclick="showTab('criteria')">Mezonlar</button>
+        </div>
+        
+        <div class="main-content">
+            <div class="card tab-content active" id="input">
+                <h2>Ma'lumotlarni Kiriting</h2>
+                
+                <div class="input-group">
+                    <label for="pullups">Turnikda tortilish (marta)</label>
+                    <input type="number" id="pullups" min="0" max="30" placeholder="Misol: 8" inputmode="numeric">
+                </div>
+                
+                <div class="input-group">
+                    <label for="running">3 km yugurish (daqiqa:soniya)</label>
+                    <input type="text" id="running" placeholder="Misol: 12.30" inputmode="decimal">
+                </div>
+                
+                <div class="input-group">
+                    <label for="pushups">Qo'l tekis tortish (marta)</label>
+                    <input type="number" id="pushups" min="0" max="100" placeholder="Misol: 40" inputmode="numeric">
+                </div>
+                
+                <div class="input-group">
+                    <label for="situps">Qorin mashqi (marta/1 daqiqa)</label>
+                    <input type="number" id="situps" min="0" max="100" placeholder="Misol: 50" inputmode="numeric">
+                </div>
+                
+                <div class="input-group">
+                    <label for="ageGroup">Yosh guruhi</label>
+                    <select id="ageGroup">
+                        <option value="18-25">18-25 yosh</option>
+                        <option value="26-30">26-30 yosh</option>
+                        <option value="31-35">31-35 yosh</option>
+                        <option value="36-40">36-40 yosh</option>
+                        <option value="41+">41+ yosh</option>
+                    </select>
+                </div>
+                
+                <button id="calculateBtn">Baholashni Hisoblash</button>
+            </div>
+            
+            <div class="card tab-content" id="criteria">
+                <h2>Baholash Mezonlari</h2>
+                
+                <div class="exercise-details">
+                    <h4>18-25 yosh guruhi uchun</h4>
+                    <table class="criteria-table">
+                        <tr>
+                            <th>Mashq</th>
+                            <th>5 (A'lo)</th>
+                            <th>4 (Yaxshi)</th>
+                            <th>3 (Qoniqarli)</th>
+                            <th>2 (Qoniqarsiz)</th>
+                        </tr>
+                        <tr>
+                            <td>Turnikda tortilish</td>
+                            <td>14+ marta</td>
+                            <td>10-13 marta</td>
+                            <td>8-9 marta</td>
+                            <td>7 yoki kam</td>
+                        </tr>
+                        <tr>
+                            <td>3 km yugurish</td>
+                            <td>11.30 yoki kam</td>
+                            <td>12.00-11.31</td>
+                            <td>13.00-12.01</td>
+                            <td>13.01+</td>
+                        </tr>
+                        <tr>
+                            <td>Qo'l tekis tortish</td>
+                            <td>50+ marta</td>
+                            <td>40-49 marta</td>
+                            <td>30-39 marta</td>
+                            <td>29 yoki kam</td>
+                        </tr>
+                        <tr>
+                            <td>Qorin mashqi</td>
+                            <td>60+ marta</td>
+                            <td>50-59 marta</td>
+                            <td>40-49 marta</td>
+                            <td>39 yoki kam</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="exercise-details">
+                    <h4>26-30 yosh guruhi uchun</h4>
+                    <table class="criteria-table">
+                        <tr>
+                            <th>Mashq</th>
+                            <th>5 (A'lo)</th>
+                            <th>4 (Yaxshi)</th>
+                            <th>3 (Qoniqarli)</th>
+                        </tr>
+                        <tr>
+                            <td>Turnikda tortilish</td>
+                            <td>12+ marta</td>
+                            <td>9-11 marta</td>
+                            <td>7-8 marta</td>
+                        </tr>
+                        <tr>
+                            <td>3 km yugurish</td>
+                            <td>12.00 yoki kam</td>
+                            <td>12.30-12.01</td>
+                            <td>13.30-12.31</td>
+                        </tr>
+                        <tr>
+                            <td>Qo'l tekis tortish</td>
+                            <td>45+ marta</td>
+                            <td>35-44 marta</td>
+                            <td>25-34 marta</td>
+                        </tr>
+                        <tr>
+                            <td>Qorin mashqi</td>
+                            <td>55+ marta</td>
+                            <td>45-54 marta</td>
+                            <td>35-44 marta</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Natijalar</h2>
+                
+                <div class="result-display">
+                    <div id="initialText">Ma'lumotlarni kiritib, "Baholashni Hisoblash" tugmasini bosing</div>
+                    
+                    <div id="results" style="display: none;">
+                        <div class="total-score">
+                            Umumiy ball: <span id="totalScore">0</span>
+                        </div>
+                        
+                        <div class="grade" id="gradeDisplay">
+                            Baho: <span id="gradeText">Yaxshi</span>
+                        </div>
+                        
+                        <div class="details">
+                            <h3>Mashqlar bo'yicha ballar</h3>
+                            <table>
+                                <tr>
+                                    <th>Mashq</th>
+                                    <th>Natija</th>
+                                    <th>Ball</th>
+                                </tr>
+                                <tr>
+                                    <td>Turnikda tortilish</td>
+                                    <td id="pullupsResult">0 marta</td>
+                                    <td id="pullupsScore">0</td>
+                                </tr>
+                                <tr>
+                                    <td>3 km yugurish</td>
+                                    <td id="runningResult">0 daq</td>
+                                    <td id="runningScore">0</td>
+                                </tr>
+                                <tr>
+                                    <td>Qo'l tekis tortish</td>
+                                    <td id="pushupsResult">0 marta</td>
+                                    <td id="pushupsScore">0</td>
+                                </tr>
+                                <tr>
+                                    <td>Qorin mashqi</td>
+                                    <td id="situpsResult">0 marta</td>
+                                    <td id="situpsScore">0</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="safe-area"></div>
+    </div>
+    
+    <button id="installBtn" class="install-btn">📲 Ilovani O'rnatish</button>
+
+    <!-- Manifest fayli -->
+    <script>
+        // Manifest fayli yaratish
+        const manifest = {
+            "name": "JISMONIY TAYYORGARLIK",
+            "short_name": "JismoniyTayyorgarlik",
+            "description": "Harbiy xizmatchilarning jismoniy tayyorgarlik darajasini baholash dasturi",
+            "start_url": "/",
+            "display": "standalone",
+            "background_color": "#0d3a5f",
+            "theme_color": "#0d3a5f",
+            "orientation": "portrait",
+            "icons": [
+                {
+                    "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>",
+                    "sizes": "72x72 96x96 128x128 144x144 152x152 192x192 384x384 512x512",
+                    "type": "image/svg+xml"
+                }
+            ]
+        };
+        
+        // Manifestni DOM ga qo'shish
+        const manifestLink = document.createElement('link');
+        manifestLink.rel = 'manifest';
+        manifestLink.href = URL.createObjectURL(new Blob([JSON.stringify(manifest)], {type: 'application/json'}));
+        document.head.appendChild(manifestLink);
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calculateBtn = document.getElementById('calculateBtn');
+            const installBtn = document.getElementById('installBtn');
+            let deferredPrompt;
+            
+            // PWA o'rnatish ilovasi
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                installBtn.style.display = 'block';
+            });
+            
+            installBtn.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === 'accepted') {
+                        installBtn.style.display = 'none';
+                    }
+                    deferredPrompt = null;
+                }
+            });
+            
+            // Tab ko'rsatish
+            window.showTab = function(tabName) {
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                document.getElementById(tabName).classList.add('active');
+                document.querySelector(`.tab-btn[onclick="showTab('${tabName}')"]`).classList.add('active');
+            };
+            
+            calculateBtn.addEventListener('click', function() {
+                // Qiymatlarni olish
+                const pullups = parseInt(document.getElementById('pullups').value) || 0;
+                const runningInput = document.getElementById('running').value;
+                const pushups = parseInt(document.getElementById('pushups').value) || 0;
+                const situps = parseInt(document.getElementById('situps').value) || 0;
+                const ageGroup = document.getElementById('ageGroup').value;
+                
+                // Yugurish vaqtini daqiqaga aylantirish
+                let runningTime = 0;
+                if (runningInput.includes('.')) {
+                    const parts = runningInput.split('.');
+                    runningTime = parseInt(parts[0]) + (parseInt(parts[1]) / 100);
+                } else if (runningInput.includes(':')) {
+                    const parts = runningInput.split(':');
+                    runningTime = parseInt(parts[0]) + (parseInt(parts[1]) / 60);
+                } else {
+                    runningTime = parseFloat(runningInput) || 0;
+                }
+                
+                // Ballarni hisoblash
+                const pullupsScore = calculatePullupsScore(pullups, ageGroup);
+                const runningScore = calculateRunningScore(runningTime, ageGroup);
+                const pushupsScore = calculatePushupsScore(pushups, ageGroup);
+                const situpsScore = calculateSitupsScore(situps, ageGroup);
+                
+                // Umumiy ball
+                const totalScore = pullupsScore + runningScore + pushupsScore + situpsScore;
+                const averageScore = totalScore / 4;
+                
+                // Bahoni aniqlash
+                let grade, gradeClass;
+                if (averageScore >= 4.5) {
+                    grade = "A'lo (5)";
+                    gradeClass = "grade-excellent";
+                } else if (averageScore >= 3.5) {
+                    grade = "Yaxshi (4)";
+                    gradeClass = "grade-good";
+                } else if (averageScore >= 2.5) {
+                    grade = "Qoniqarli (3)";
+                    gradeClass = "grade-satisfactory";
+                } else {
+                    grade = "Qoniqarsiz (2)";
+                    gradeClass = "grade-poor";
+                }
+                
+                // Natijalarni ko'rsatish
+                document.getElementById('initialText').style.display = 'none';
+                document.getElementById('results').style.display = 'block';
+                
+                document.getElementById('totalScore').textContent = averageScore.toFixed(2);
+                document.getElementById('gradeText').textContent = grade;
+                document.getElementById('gradeDisplay').className = 'grade ' + gradeClass;
+                
+                document.getElementById('pullupsResult').textContent = pullups + ' marta';
+                document.getElementById('pullupsScore').textContent = pullupsScore.toFixed(1);
+                
+                document.getElementById('runningResult').textContent = runningTime.toFixed(2) + ' daq';
+                document.getElementById('runningScore').textContent = runningScore.toFixed(1);
+                
+                document.getElementById('pushupsResult').textContent = pushups + ' marta';
+                document.getElementById('pushupsScore').textContent = pushupsScore.toFixed(1);
+                
+                document.getElementById('situpsResult').textContent = situps + ' marta';
+                document.getElementById('situpsScore').textContent = situpsScore.toFixed(1);
+                
+                // Natijalar tabiga o'tish
+                showTab('input');
+            });
+            
+            // Turnikda tortilish uchun ball hisoblash
+            function calculatePullupsScore(pullups, ageGroup) {
+                // Yosh guruhiga qarab mezonlar
+                const criteria = {
+                    '18-25': { excellent: 14, good: 10, satisfactory: 8 },
+                    '26-30': { excellent: 12, good: 9, satisfactory: 7 },
+                    '31-35': { excellent: 10, good: 8, satisfactory: 6 },
+                    '36-40': { excellent: 8, good: 6, satisfactory: 5 },
+                    '41+': { excellent: 6, good: 5, satisfactory: 4 }
+                };
+                
+                const groupCriteria = criteria[ageGroup];
+                
+                if (pullups >= groupCriteria.excellent) return 5.0;
+                if (pullups >= groupCriteria.good) return 4.0;
+                if (pullups >= groupCriteria.satisfactory) return 3.0;
+                if (pullups >= groupCriteria.satisfactory - 3) return 2.0;
+                return 1.0;
+            }
+            
+            // Yugurish uchun ball hisoblash
+            function calculateRunningScore(time, ageGroup) {
+                // Yosh guruhiga qarab mezonlar (daqiqalarda)
+                const criteria = {
+                    '18-25': { excellent: 11.5, good: 12.0, satisfactory: 13.0 },
+                    '26-30': { excellent: 12.0, good: 12.5, satisfactory: 13.5 },
+                    '31-35': { excellent: 12.5, good: 13.0, satisfactory: 14.0 },
+                    '36-40': { excellent: 13.0, good: 13.5, satisfactory: 14.5 },
+                    '41+': { excellent: 13.5, good: 14.0, satisfactory: 15.0 }
+                };
+                
+                const groupCriteria = criteria[ageGroup];
+                
+                if (time <= groupCriteria.excellent) return 5.0;
+                if (time <= groupCriteria.good) return 4.0;
+                if (time <= groupCriteria.satisfactory) return 3.0;
+                if (time <= groupCriteria.satisfactory + 1.0) return 2.0;
+                return 1.0;
+            }
+            
+            // Qo'l tekis tortish uchun ball hisoblash
+            function calculatePushupsScore(pushups, ageGroup) {
+                // Yosh guruhiga qarab mezonlar
+                const criteria = {
+                    '18-25': { excellent: 50, good: 40, satisfactory: 30 },
+                    '26-30': { excellent: 45, good: 35, satisfactory: 25 },
+                    '31-35': { excellent: 40, good: 30, satisfactory: 20 },
+                    '36-40': { excellent: 35, good: 25, satisfactory: 15 },
+                    '41+': { excellent: 30, good: 20, satisfactory: 10 }
+                };
+                
+                const groupCriteria = criteria[ageGroup];
+                
+                if (pushups >= groupCriteria.excellent) return 5.0;
+                if (pushups >= groupCriteria.good) return 4.0;
+                if (pushups >= groupCriteria.satisfactory) return 3.0;
+                if (pushups >= groupCriteria.satisfactory - 5) return 2.0;
+                return 1.0;
+            }
+            
+            // Qorin mashqi uchun ball hisoblash
+            function calculateSitupsScore(situps, ageGroup) {
+                // Yosh guruhiga qarab mezonlar
+                const criteria = {
+                    '18-25': { excellent: 60, good: 50, satisfactory: 40 },
+                    '26-30': { excellent: 55, good: 45, satisfactory: 35 },
+                    '31-35': { excellent: 50, good: 40, satisfactory: 30 },
+                    '36-40': { excellent: 45, good: 35, satisfactory: 25 },
+                    '41+': { excellent: 40, good: 30, satisfactory: 20 }
+                };
+                
+                const groupCriteria = criteria[ageGroup];
+                
+                if (situps >= groupCriteria.excellent) return 5.0;
+                if (situps >= groupCriteria.good) return 4.0;
+                if (situps >= groupCriteria.satisfactory) return 3.0;
+                if (situps >= groupCriteria.satisfactory - 5) return 2.0;
+                return 1.0;
+            }
+        });
+    </script>
+</body>
+</html>
